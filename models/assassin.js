@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-  var Assassin = sequelize.define("Assassins", {
+  var Developer = sequelize.define("Developer", {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -7,18 +7,11 @@ module.exports = function(sequelize, DataTypes) {
         len: [1-50]
       }
     },
-    biography: {
-      type: DataTypes.TEXT,
-      allowNull: false,        
-      validate: {
-        len: [20-500]
-      }
-    },
-    kill_history: {
+    experience: {
       type: DataTypes.TEXT,
       allowNull: false,
       validate: {
-        len: [4-500]
+        len: [4-200]
       }
     },
     cost_to_hire: {
@@ -46,7 +39,7 @@ module.exports = function(sequelize, DataTypes) {
       }
     }  
   });
-  return Assassin;
+  return Developer;
 };
 
 module.exports = function(sequelize, DataTypes) {
@@ -77,7 +70,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.TEXT,
       allowNull: false,
       validate: {
-        len: [10-500]
+        len: [10-200]
       }
     },
     job_completed: {

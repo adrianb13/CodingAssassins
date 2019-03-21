@@ -6,22 +6,22 @@ module.exports = function(app) {
       res.render("index");
   });
 
-  //Load Client Page to show Assassins
+  //Load Client Page to show Developers
   app.get("/client", function(req, res) {
-    db.Assassin.findAll({}).then(function(dbAssassin) {
-      res.render("assassin", {
-        assassin: dbAssassin
+    db.Developer.findAll({}).then(function(dbDeveloper) {
+      res.render("developer", {
+        developer: dbDeveloper
       });
     });
   });
 
-  app.get("/assassin", function(req, res) {
-    db.Assassin.findOne({
+  app.get("/developer", function(req, res) {
+    db.Developer.findOne({
       where: {
         password: req.body.password
       }
-    }).then(function(dbAssassin) {
-      res.render("assassin")
+    }).then(function(dbDeveloper) {
+      res.render("developer")
     });      
   });
 
