@@ -1,99 +1,128 @@
-// Get references to page elements
-var $exampleText = $("#example-text");
-var $exampleDescription = $("#example-description");
-var $submitBtn = $("#submit");
-var $exampleList = $("#example-list");
+// Get references to Developer Application Page elements
+var $developerName= $("#developerName");
+var $experience = $("#experience");
+var $cost = $("#cost");
+var $password = $("#password")
+var $submit = $("#submit");
+var $developerList = $("#developer-list");
 
 // The API object contains methods for each kind of request we'll make
 var API = {
-  saveExample: function(example) {
+  saveDeveloper: function(newDeveloper) {
     return $.ajax({
       headers: {
         "Content-Type": "application/json"
       },
       type: "POST",
-      url: "api/examples",
-      data: JSON.stringify(example)
+      url: "api/developers",
+      data: JSON.stringify(newDeveloper)
     });
   },
-  getExamples: function() {
+  getDeveloper: function() {
     return $.ajax({
-      url: "api/examples",
+      url: "api/developers",
       type: "GET"
     });
   },
-  deleteExample: function(id) {
+  deleteDeveloper: function(id) {
     return $.ajax({
-      url: "api/examples/" + id,
+      url: "api/developers/" + id,
       type: "DELETE"
     });
   }
 };
 
 // refreshExamples gets new examples from the db and repopulates the list
-var refreshExamples = function() {
-  API.getExamples().then(function(data) {
-    var $examples = data.map(function(example) {
+var refreshDevelopers = function() {
+  API.getDeveloper().then(function(data) {
+/*     var rows = [];
+    for (i = 0; i < data.length; i++) {
+      rows.push(createDeveloper(data[i]));
+    }
+    $("<tbody>").append(rows);
+  })
+}; */
+    var $Developers = data.map(function(newDeveloper) {
+
       var $a = $("<a>")
-        .text(example.text)
-        .attr("href", "/example/" + example.id);
+        .text(newDeveloper.name + "      " + newDeveloper.cost_to_hire)
+        .attr("href", "/developers/" + newDeveloper.id);
 
       var $li = $("<li>")
         .attr({
           class: "list-group-item",
-          "data-id": example.id
+          "data-id": newDeveloper.id
         })
         .append($a);
 
       var $button = $("<button>")
         .addClass("btn btn-danger float-right delete")
         .text("ｘ");
-
+ 
       $li.append($button);
 
       return $li;
     });
 
-    $exampleList.empty();
-    $exampleList.append($examples);
+    $developerList.empty();
+    $developerList.append($Developers);
   });
+}; 
+refreshDevelopers();
+
+function createDeveloper(developer) {
+  var newTr = $("<tr>");
+    newTr.data("developers", developer);
+    newTr.append("<td>" + developer.name + "</td>");
+    newTr.append("<td>" + developer.experience + "</td>");
+    newTr.append("<td>" + developer.cost_to_hire + "</td>");
+    newTr.append("<td>" + developer.hired + "</td>");
+  return newTr;
 };
 
-// handleFormSubmit is called whenever we submit a new example
-// Save the new example to the db and refresh the list
+// handleFormSubmit is called whenever we submit a new Developer
+// Save the new Developer to the db and refresh the list
 var handleFormSubmit = function(event) {
   event.preventDefault();
 
-  var example = {
-    text: $exampleText.val().trim(),
-    description: $exampleDescription.val().trim()
+  var newDeveloper = {
+    name: $developerName.val().trim(), 
+    experience: $experience.val().trim(), 
+    cost_to_hire: $cost.val().trim(), 
+    password: $password.val().trim() 
   };
 
-  if (!(example.text && example.description)) {
-    alert("You must enter an example text and description!");
+console.log(newDeveloper);
+
+  if (!(newDeveloper.name && newDeveloper.experience && newDeveloper.cost_to_hire && newDeveloper.password)) {
+    alert("You must enter your name, experience, cost to hire, and password!");
     return;
+  } else if (isNaN(newDeveloper.phone_number || newDeveloper.password)) {
+    alert("You must enter numbers for your phone number and 4-Digit PIN/Password")
   }
 
-  API.saveExample(example).then(function() {
-    refreshExamples();
+  API.saveDeveloper(newDeveloper).then(function() {
+    refreshDevelopers();
   });
 
-  $exampleText.val("");
-  $exampleDescription.val("");
+  $developerName.val("");
+  $experience.val("");
+  $cost.val("");
+  $password.val("");
 };
 
-// handleDeleteBtnClick is called when an example's delete button is clicked
-// Remove the example from the db and refresh the list
+// handleDeleteBtnClick is called when an Developer's delete button is clicked
+// Remove the Developer from the db and refresh the list
 var handleDeleteBtnClick = function() {
   var idToDelete = $(this)
     .parent()
     .attr("data-id");
 
-  API.deleteExample(idToDelete).then(function() {
-    refreshExamples();
+  API.deleteDeveloper(idToDelete).then(function() {
+    refreshDevelopers();
   });
 };
 
 // Add event listeners to the submit and delete buttons
-$submitBtn.on("click", handleFormSubmit);
-$exampleList.on("click", ".delete", handleDeleteBtnClick);
+$submit.on("click", handleFormSubmit);
+$developerList.on("click", ".delete", handleDeleteBtnClick);

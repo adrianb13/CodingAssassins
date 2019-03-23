@@ -2,102 +2,117 @@ var db = require("../models");
 
 module.exports = function(app) {
 
-// Client Page
-// Developer List
-  app.get("/api/developer", function(req, res) {
-    db.Developer.findAll({}).then(function(dbDeveloper) {
-      res.json(dbDeveloper);
+// Clients Page
+// Developers List
+  app.get("/api/developers", function(req, res) {
+    db.Developers.findAll({}).then(function(dbDevelopers) {
+      res.json(dbDevelopers);
     });
   });
 
-// View Developer Description
-  app.get("/api/developer/:id", function(req, res) {
-    db.Developer.findOne({
+// View Developers Description
+  app.get("/api/developers/:id", function(req, res) {
+    db.Developers.findOne({
       where: {
-        name: req.params.name
+        id: req.params.id
       }
-    }).then(function(dbDeveloper) {
-      res.json(dbDeveloper);
+    }).then(function(dbDevelopers) {
+      res.json(dbDevelopers);
     }).catch(function(err) {
       res.json(err);
     });
   });
 
-// Get Own Job Request
-  app.get("/api/client/:username", function(req, res) {
-    db.Client.findOne({
+// Find A Certain Client
+  app.get("/api/clients/:name", function(req, res) {
+    db.Clients.findOne({
       where: {
-        username: req.body.name
+        name: req.body.name
       }
+    }).then(function(dbDevelopers) {
+      res.json(dbDevelopers);
     })
   })
 
-// Hire Developer
-app.put("/api/developer/:id", function(req, res) {
-  db.Developer.update({
+// Hire Developers
+app.put("/api/developers/:id", function(req, res) {
+  db.Developers.update({
     hired: req.body.hired,
-    hired_by: req.body.username
+    hired_by: req.body.name
   }, {
     where: {
       id: req.params.id
     }
-  }).then(function(dbDeveloper) {
-    res.json(dbDeveloper)
+  }).then(function(dbDevelopers) {
+    res.json(dbDevelopers)
   }).catch(function(err) {
     res.json(err);
   });
 });
 
 // Delete A Job Request
-app.delete("/api/client/:id", function(req, res) {
-  db.Client.destroy({ 
+app.delete("/api/clients/:id", function(req, res) {
+  db.Clients.destroy({ 
     where: { 
       id: req.params.id } 
-  }).then(function(dbClient) {
-    res.json(dbClient);
+  }).then(function(dbClients) {
+    res.json(dbClients);
   });
 });
 
-// Developer Page
-// Client list for Developer
-  app.get("/api/client/:id", function(req, res) {
-    db.Client.findOne({
-      where: {
-        id: req.params.id
-      }
-    }).then(function(dbClient) {
-        res.json(dbClient);
+// Developers Page
+// Clients list for Developers
+  app.get("/api/clients", function(req, res) {
+    db.Clients.findAll({}).then(function(dbClients) {
+      res.json(dbClients);
     });  
   });
   
-// Developer Application
-  app.post("/api/developer", function(req, res) {
-    db.Developer.create({
+// Developers Application
+  app.post("/api/developers", function(req, res) {
+    db.Developers.create({
       name: req.body.name,
-      biography: req.body.biography,
-      kill_history: req.body.kill_history,
-      cost_to_hire: req.body.cost_to_hire
-    }).then(function(dbDeveloper) {
-      res.json(dbDeveloper);
+      experience: req.body.experience,
+      cost_to_hire: req.body.cost_to_hire,
+      password: req.body.password
+    }).then(function(dbDevelopers) {
+      res.json(dbDevelopers);
     }).catch(function(err) {
       res.json(err);
     });
   });
 
-  app.get("/api/developer/:password", function(req, res) {
-    db.Developer.findOne({
+  app.get("/api/developers/:password", function(req, res) {
+    db.Developers.findOne({
       where: req.body.password
-    })
+    }).then(function(dbDevelopers) {
+      res.json(dbDevelopers);
+    }).catch(function(err) {
+      res.json(err);
+    });
   })
 
-// Confirm Completion Of Requested Job By Client
-  app.put("/api/client/:id", function(req, res) {
-    db.Client.update({
+// Confirm Completion Of Requested Job By Clients
+  app.put("/api/clients/:id", function(req, res) {
+    db.Clients.update({
       job_completed: req.body.job_completed
     }, {
       where: {
         id: req.body.id
       }
+    }).then(function(dbDevelopers) {
+      res.json(dbDevelopers);
+    }).catch(function(err) {
+      res.json(err);
+    });
+  });
+
+  app.delete("/api/developers/:id", function(req, res) {
+    db.Developers.destroy({ 
+      where: { 
+        id: req.params.id } 
+    }).then(function(dbDevelopers) {
+      res.json(dbDevelopers);
     });
   });
 };
