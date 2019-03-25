@@ -1,4 +1,4 @@
-<div id="Developer">
+<div id="client">
   <div class="container">
     <div class="row">
       <div class="col-8 offset-2">
@@ -48,18 +48,50 @@
           {{#each Developers}}
             <li data-id="{{this.id}}" class="list-group-item">
               <a href="developers/{{this.id}}">{{this.name}}</a>
-              <button class="btn btn-danger float-right delete">ｘ</button>
+              <button class="btn btn-danger float-right hire">Hire</button>
             </li>
           {{/each}}
         </ul>
+        <br>
 
+        <h3>Post A Job</h3>
+
+        <form class="clearfix mb-4" action="POST">          
+          <div class="form-group">              
+            <label for="clientName">Full Name</label>
+              <input type="text" id="clientName" class="form-control" aria-describedby="clientName" placeholder="Enter Full Name">
+          </div>
+
+          <div class="form-group">
+            <label for="phoneNumber">Phone Number (Ex: 619-555-1234)</label>
+            <input type="tel" id="phoneNumber" class="form-control" aria-describedby="phoneNumber" placeholder="Enter Phone Number;  619-555-1234" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+          </div>
+
+          <div class="form-group">
+            <label for="jobHeader">Job Header</label>
+            <input type="text"  id="jobHeader" class="form-control" aria-describedby="jobHeader" placeholder="Enter A Job Header">
+          </div>
+
+          <div class="form-group">
+            <label for="jobDescription">Job Description</label>
+            <textarea type="text" id="jobDescription" class="form-control" aria-describedby="jobDescription" placeholder="Enter The Request Job Description"></textarea>
+          </div>
+
+          <button id="jobSubmit" class="btn btn-primary float-right">Submit</button>
+        </form>
+          
         <h3>Clients:</h3>
-        <ul>
-          {{#each Clients}}
-            <li>{{this.name}}</li>
+        <ul id="client-list" class="list-group">
+            {{#each clients}}
+            <li data-id="{{this.id}}" class="list-group-item">
+            <a href="clients/{{this.id}}">{{this.name}}</a>
+            </li>
             <li>{{this.phone_number}}</li>
-          {{/each}}
+            {{/each}}
         </ul>
+
+        <br>
+        <button id="client" class="btn btn-primary float-right" href="/developer">Developer Page</button>
       </div>
     </div>
   </div>

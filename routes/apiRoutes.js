@@ -2,7 +2,7 @@ var db = require("../models");
 
 module.exports = function(app) {
 
-// Clients Page
+
 // Developers List
   app.get("/api/developers", function(req, res) {
     db.Developers.findAll({}).then(function(dbDevelopers) {
@@ -23,51 +23,58 @@ module.exports = function(app) {
     });
   });
 
+// Clients list for Developers
+app.get("/api/clients", function(req, res) {
+  db.Clients.findAll({
+  }).then(function(dbClients) {
+/*     var clients = {
+      clients: dbClients
+    };
+    console.log(clients);
+    res.render("client", clients); */
+    res.json(dbClients)
+  });  
+});
+
 // Find A Certain Client
-  app.get("/api/clients/:name", function(req, res) {
-    db.Clients.findOne({
+  app.get("/api/clients", function(req, res) {
+    db.Clients.findAll({
       where: {
-        name: req.body.name
+        phone_number: req.body.phone_number
+
       }
-    }).then(function(dbDevelopers) {
-      res.json(dbDevelopers);
+    }).then(function(dbClients) {
+      res.json(dbClients);
     })
   })
 
+// Developer Sign In
+  app.get("/api/developers/:password", function(req, res) {
+    db.Developers.findOne({
+      where: req.body.password
+    }).then(function(dbDevelopers) {
+      res.json(dbDevelopers);
+    }).catch(function(err) {
+      res.json(err);
+    });
+  })
+
 // Hire Developers
-app.put("/api/developers/:id", function(req, res) {
-  db.Developers.update({
-    hired: req.body.hired,
-    hired_by: req.body.name
-  }, {
+  app.put("/api/developers/:id", function(req, res) {
+    db.Developers.update({
+      hired: req.body.hired,
+      hired_by: req.body.name
+    }, {
     where: {
       id: req.params.id
     }
-  }).then(function(dbDevelopers) {
-    res.json(dbDevelopers)
-  }).catch(function(err) {
-    res.json(err);
+    }).then(function(dbDevelopers) {
+      res.json(dbDevelopers)
+    }).catch(function(err) {
+      res.json(err);
+    });
   });
-});
 
-// Delete A Job Request
-app.delete("/api/clients/:id", function(req, res) {
-  db.Clients.destroy({ 
-    where: { 
-      id: req.params.id } 
-  }).then(function(dbClients) {
-    res.json(dbClients);
-  });
-});
-
-// Developers Page
-// Clients list for Developers
-  app.get("/api/clients", function(req, res) {
-    db.Clients.findAll({}).then(function(dbClients) {
-      res.json(dbClients);
-    });  
-  });
-  
 // Developers Application
   app.post("/api/developers", function(req, res) {
     db.Developers.create({
@@ -82,15 +89,18 @@ app.delete("/api/clients/:id", function(req, res) {
     });
   });
 
-  app.get("/api/developers/:password", function(req, res) {
-    db.Developers.findOne({
-      where: req.body.password
-    }).then(function(dbDevelopers) {
-      res.json(dbDevelopers);
+  app.post("/api/clients", function(req, res) {
+    db.Clients.create({
+      name: req.body.name,
+      phone_number: req.body.phone_number,
+      job_header: req.body.job_header,
+      job_requested: req.body.job_requested
+    }).then(function(dbClients) {
+      res.json(dbClients);
     }).catch(function(err) {
       res.json(err);
     });
-  })
+  });
 
 // Confirm Completion Of Requested Job By Clients
   app.put("/api/clients/:id", function(req, res) {
@@ -100,13 +110,14 @@ app.delete("/api/clients/:id", function(req, res) {
       where: {
         id: req.body.id
       }
-    }).then(function(dbDevelopers) {
-      res.json(dbDevelopers);
+    }).then(function(dbClients) {
+      res.json(dbClients);
     }).catch(function(err) {
       res.json(err);
     });
   });
 
+  // Delete developer
   app.delete("/api/developers/:id", function(req, res) {
     db.Developers.destroy({ 
       where: { 
@@ -115,4 +126,16 @@ app.delete("/api/clients/:id", function(req, res) {
       res.json(dbDevelopers);
     });
   });
+
+  // Delete A Job Request
+  app.delete("/api/clients/:id", function(req, res) {
+    db.Clients.destroy({ 
+      where: { 
+        id: req.params.id } 
+    }).then(function(dbClients) {
+      res.json(dbClients);
+    });
+  });
+
 };
+

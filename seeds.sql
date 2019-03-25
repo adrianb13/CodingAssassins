@@ -19,16 +19,16 @@ VALUES("Fredrick", "current student", 800, 1234),
     ("Gerald", "Graduate from MIT", 90, 1012);
 
 INSERT INTO clients(name, phone_number, job_header, job_requested)
-VALUES("Jacob", 6786786677, "Need an app made", "App needs to be able to help locate events"),
-    ("Jorge", 6198282222, "Need a polished front end", "I need my website to look modern"),
-    ("Lawrence", 9890982234, "Need a faster app", "My website is slow, I need to debug it."),
-    ("Pooh", 9098763633, "Need a hang man game made", "The game needs to be two pages long so that it's more interactive"),
-    ("Gertrude", 8987655446, "Need a polished backend", "I'd like to get my backend working more smoothly"),
-    ("Barry", 8272627272, "Need a full website", "The website needs to be about dogs"),
-    ("Jorgette", 7383739201, "Need an RPG game", "Make characters from scratch and battle them against each other"),
-    ("Carl", 8012329876, "I need a simple game", "Get creative, impress me"),
-    ("Hob", 9210238769, "Need a monopoly type game", "Need the game to be like monopoly, but doesn't have to be."),
-    ("Kyle", 2794037282, "Need a website of books", "I'd like to get the website to read out loud the books and turn the page when it's done.");
+VALUES("Jacob", "678-678-6677", "Need an app made", "App needs to be able to help locate events"),
+    ("Jorge", "619-828-2222", "Need a polished front end", "I need my website to look modern"),
+    ("Lawrence", "989-098-2234", "Need a faster app", "My website is slow, I need to debug it."),
+    ("Pooh", "909-876-3633", "Need a hang man game made", "The game needs to be two pages long so that it's more interactive"),
+    ("Gertrude", "898-765-5446", "Need a polished backend", "I'd like to get my backend working more smoothly"),
+    ("Barry", "827-262-7272", "Need a full website", "The website needs to be about dogs"),
+    ("Jorgette", "738-373-9201", "Need an RPG game", "Make characters from scratch and battle them against each other"),
+    ("Carl", "801-232-9876", "I need a simple game", "Get creative, impress me"),
+    ("Hob", "921-023-8769", "Need a monopoly type game", "Need the game to be like monopoly, but doesn't have to be."),
+    ("Kyle", "279-403-7282", "Need a website of books", "I'd like to get the website to read out loud the books and turn the page when it's done.");
     
 USE developerdb;
 SELECT * FROM developers;

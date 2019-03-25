@@ -8,9 +8,18 @@ module.exports = function(app) {
 
   //Load Client Page to show Developers
   app.get("/client", function(req, res) {
-    db.Developer.findAll({}).then(function(dbDeveloper) {
+    db.Developers.findAll({}).then(function(dbDeveloper) {
       res.render("developer", {
-        developer: dbDeveloper
+        developers: dbDeveloper
+      });
+    });
+  });
+
+  //Load Developer Page to show Clients
+  app.get("/developer", function(req, res) {
+    db.Client.findAll({}).then(function(dbClients) {
+      res.render("client", {
+        clients: dbClients
       });
     });
   });
