@@ -1,38 +1,53 @@
-<div id="client">
+<header>
   <div class="container">
     <div class="row">
-      <div class="col-8 offset-2">
-        <h1>{{msg}}</h1>
 
-        <h2>Developer Application Page!</h2>
+      <div class="col-6">
+        <h1>Coding Assassins</h1>
+      </div>
 
-        <form class="clearfix mb-4" action="POST">          
-          <div class="form-group">
-            <label for="developerName">Developer</label>
-            <input type="text" id="developerName" class="form-control" aria-describedby="developerName" placeholder="Enter Full Name">
+      <div class="col-6">
+        <nav class="navbar navbar-expand-lg">
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav nav">
+              <a class="nav-item nav-link active" href="/">Home</a>
+              <a class="nav-item nav-link" href="#"></a>
+              <a class="nav-item nav-link" href="#"></a>
+            </div>
           </div>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
 
-          <div class="form-group">
-            <label for="experience">Experience</label>
-            <textarea class="form-control" id="experience" aria-describedby="experience" placeholder="Enter Experience"></textarea>
-          </div>
+<div class="container dev-login">
+  <div class="dev-login-logo">Developer Log-In (Assassins)</div>
+  <form>
+    <div class="form-group">
+      <label for="exampleInputEmail1">Email address</label>
+      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+        placeholder="Enter email">
+      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+        else.</small>
+    </div>
+    <div class="form-group">
+      <label for="exampleInputPassword1">Password</label>
+      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+    </div>
+    <button type="submit" class="btn btn-primary">Login</button>
+    <button class="btn btn-success new-dev">Create Account</button>
+  </form>
+</div>
 
-          <div class="form-group">
-            <label for="cost">Cost To Hire ($)</label>
-            <input type="text" class="form-control" id="cost" aria-describedby="cost" placeholder="Enter Cost To Hire (Do Not Include $)">
-          </div>
 
-          <div class="form-group">
-            <label for="password">4-Digit PIN</label>
-            <input class="form-control" id="password" aria-describedby="password" placeholder="Enter A 4-Digit PIN">
-          </div>
+<div class="container home-content">
+      <p class="content-head">Clients Enter Here!</p>
+      <button id="clientPage" class="btn btn-danger bus-button"><a href="/client">Clients</a></button>
+    </div>
 
-          <button id="submit" class="btn btn-primary float-right">Submit</button>
 
-        </form>
-
-        <h3>Developers:</h3>
-
+<<<<<<< HEAD
 {{!--         <table>
           <thead>
             <th>Name</th>
@@ -97,6 +112,9 @@
     </div>
   </div>
 </div>
+=======
+
+>>>>>>> master
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="/js/index.js"></script>
