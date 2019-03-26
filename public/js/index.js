@@ -40,11 +40,8 @@ var API = {
   /// Clients
   saveClient: function(newClient) {
     return $.ajax({
-      headers: {
-        "Content-Type": "application/json"
-      },
       type: "POST",
-      url: "api/clients",
+      url: "../api/clients",
       data: JSON.stringify(newClient)
     });
   },
