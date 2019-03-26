@@ -2,6 +2,7 @@ var db = require("../models");
 
 module.exports = function(app) {
 
+
 // Developers List
   app.get("/api/developers", function(req, res) {
     db.Developers.findAll({}).then(function(dbDevelopers) {
@@ -32,7 +33,7 @@ app.get("/api/clients", function(req, res) {
     console.log(clients);
     res.render("client", clients); */
     res.json(dbClients)
-  });
+  });  
 });
 
 // Find A Certain Client
@@ -40,6 +41,7 @@ app.get("/api/clients", function(req, res) {
     db.Clients.findAll({
       where: {
         phone_number: req.body.phone_number
+
       }
     }).then(function(dbClients) {
       res.json(dbClients);

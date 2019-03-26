@@ -40,6 +40,9 @@ var API = {
   /// Clients
   saveClient: function(newClient) {
     return $.ajax({
+      headers: {
+        "Content-Type": "application/json"
+      },
       type: "POST",
       url: "api/clients",
       data: JSON.stringify(newClient)
@@ -57,7 +60,6 @@ var API = {
       type: "DELETE"
     });
   }
-
 };
 
 // refreshExamples gets new examples from the db and repopulates the list
@@ -85,7 +87,7 @@ var refreshDevelopers = function() {
       var $button = $("<button>")
         .addClass("btn btn-danger float-right hire")
         .text("Hire");
- 
+
       $li.append($button);
 
       return $li;
@@ -94,7 +96,7 @@ var refreshDevelopers = function() {
     $developerList.empty();
     $developerList.append($Developers);
   });
-}; 
+};
 refreshDevelopers();
 
 function createDeveloper(developer) {
@@ -125,7 +127,7 @@ console.log(newDeveloper);
     alert("You must enter your name, experience, cost to hire, and password!");
     return;
   } else if (isNaN(newDeveloper.cost_to_hire || newDeveloper.password)) {
-    alert("You must enter numbers for your cost to hire and 4-Digit PIN/Password")
+    alert("You must enter numbers for your cost to hire and 4-Digit PIN/Password.")
   }
 
   API.saveDeveloper(newDeveloper).then(function() {
@@ -165,7 +167,7 @@ $submit.on("click", handleFormSubmit);
 $developerList.on("click", ".delete", handleDeleteBtnClick);
 
 /////////////////////////////////////////////////
-var $clientName= $("#clientName");
+var $clientName = $("#clientName");
 var $phoneNumber = $("#phoneNumber");
 var $jobHeader = $("#jobHeader");
 var $jobDescription = $("#jobDescription")

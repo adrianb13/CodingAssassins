@@ -1,0 +1,102 @@
+<div id="client">
+  <div class="container">
+    <div class="row">
+      <div class="col-8 offset-2">
+        <h1>{{msg}}</h1>
+
+        <h2>Developer Application Page!</h2>
+
+        <form class="clearfix mb-4" action="POST">          
+          <div class="form-group">
+            <label for="developerName">Developer</label>
+            <input type="text" id="developerName" class="form-control" aria-describedby="developerName" placeholder="Enter Full Name">
+          </div>
+
+          <div class="form-group">
+            <label for="experience">Experience</label>
+            <textarea class="form-control" id="experience" aria-describedby="experience" placeholder="Enter Experience"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="cost">Cost To Hire ($)</label>
+            <input type="text" class="form-control" id="cost" aria-describedby="cost" placeholder="Enter Cost To Hire (Do Not Include $)">
+          </div>
+
+          <div class="form-group">
+            <label for="password">4-Digit PIN</label>
+            <input class="form-control" id="password" aria-describedby="password" placeholder="Enter A 4-Digit PIN">
+          </div>
+
+          <button id="submit" class="btn btn-primary float-right">Submit</button>
+
+        </form>
+
+        <h3>Developers:</h3>
+
+{{!--         <table>
+          <thead>
+            <th>Name</th>
+            <th>Experience</th>
+            <th>Cost</th>
+            <th>Hired</th>
+          </thead>
+          <tbody class="developer-list">
+          </tbody>
+        </table>
+ --}}       
+        <ul id="developer-list" class="list-group">
+          {{#each Developers}}
+            <li data-id="{{this.id}}" class="list-group-item">
+              <a href="developers/{{this.id}}">{{this.name}}</a>
+              <button class="btn btn-danger float-right hire">Hire</button>
+            </li>
+          {{/each}}
+        </ul>
+        <br>
+
+        <h3>Post A Job</h3>
+
+        <form class="clearfix mb-4" action="POST">          
+          <div class="form-group">              
+            <label for="clientName">Full Name</label>
+              <input type="text" id="clientName" class="form-control" aria-describedby="clientName" placeholder="Enter Full Name">
+          </div>
+
+          <div class="form-group">
+            <label for="phoneNumber">Phone Number (Ex: 619-555-1234)</label>
+            <input type="tel" id="phoneNumber" class="form-control" aria-describedby="phoneNumber" placeholder="Enter Phone Number;  619-555-1234" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+          </div>
+
+          <div class="form-group">
+            <label for="jobHeader">Job Header</label>
+            <input type="text"  id="jobHeader" class="form-control" aria-describedby="jobHeader" placeholder="Enter A Job Header">
+          </div>
+
+          <div class="form-group">
+            <label for="jobDescription">Job Description</label>
+            <textarea type="text" id="jobDescription" class="form-control" aria-describedby="jobDescription" placeholder="Enter The Request Job Description"></textarea>
+          </div>
+
+          <button id="jobSubmit" class="btn btn-primary float-right">Submit</button>
+        </form>
+          
+        <h3>Clients:</h3>
+        <ul id="client-list" class="list-group">
+            {{#each clients}}
+            <li data-id="{{this.id}}" class="list-group-item">
+            <a href="clients/{{this.id}}">{{this.name}}</a>
+            </li>
+            <li>{{this.phone_number}}</li>
+            {{/each}}
+        </ul>
+
+        <br>
+        <button id="developerPage" class="btn btn-primary float-right"><a href="/developer">Developer Page</a></button>
+        <button id="clientPage" class="btn btn-primary float-right"><a href="/client">Client Page</a></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
