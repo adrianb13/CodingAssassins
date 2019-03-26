@@ -41,7 +41,7 @@ var API = {
   saveClient: function(newClient) {
     return $.ajax({
       type: "POST",
-      url: "../api/clients",
+      url: "api/clients",
       data: JSON.stringify(newClient)
     });
   },
@@ -150,7 +150,6 @@ var handleDeleteBtnClick = function() {
   });
 };
 
-
 var handleHireBtnClick = function() {
   var idToHire = $(this)
     .parent()
@@ -160,7 +159,6 @@ var handleHireBtnClick = function() {
     refreshDevelopers();
   });
 };
-
 
 // Add event listeners to the submit and delete buttons
 $submit.on("click", handleFormSubmit);

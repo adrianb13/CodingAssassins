@@ -11,7 +11,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        min: 10,
+        min: 10
       }
     },
     job_header: {
@@ -36,4 +36,3 @@ module.exports = function(sequelize, DataTypes) {
   });
   return Clients;
 };
-    
