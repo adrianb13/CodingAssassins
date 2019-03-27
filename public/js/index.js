@@ -5,6 +5,7 @@ var $cost = $("#cost");
 var $password = $("#password")
 var $submit = $("#submit");
 var $developerList = $("#developer-list");
+var $developerHired = $("#developerHired-list");
 var $hire = $(".hire");
 
 // The API object contains methods for each kind of request we'll make
@@ -77,6 +78,7 @@ var API = {
 var refreshDevelopers = function() {
   API.getDeveloper().then(function(data) {
     var $Developers = data.map(function(newDeveloper) {
+      if (newDeveloper.hired === false) {
       var $a = $("<a>").text(newDeveloper.name + "'s Experience is: " + newDeveloper.experience)
 
       var $li = $("<li>")
@@ -95,10 +97,28 @@ var refreshDevelopers = function() {
       $li.append($button);
 
       return $li;
+      }
+    });
+
+    var $DevelopersHired =data.map(function(developer){
+      if(developer.hired === true) {
+      var $a = $("<a>").text(developer.name + "'s Experience is: " + developer.experience)
+
+      var $li = $("<li>")
+        .attr({
+          class: "list-group-item",
+          "data-id": developer.id,
+          "data-name": developer.name
+        })
+        .append($a);
+
+      return $li;
+      }
     });
 
     $developerList.empty();
     $developerList.append($Developers);
+    $developerHired.append($DevelopersHired);
   });
 };
 refreshDevelopers();
@@ -245,9 +265,11 @@ console.log(newClient);
       console.log(response[0]);
       refreshClients();
       refreshDevelopers();
-      $("#hired").text(devName + " has been notified! Thank you for using our service!")
+//      $("#hired").text(devName + " has been notified! Thank you for using our service!")
+      alert(devName + " has been notified! Thank you for using our service!")
       idToHire = 0;
       nameToHire = " ";
+      window.location.href = "/client";
     });
   });
 
