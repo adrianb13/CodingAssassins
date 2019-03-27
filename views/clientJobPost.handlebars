@@ -1,8 +1,34 @@
-<div id="Client">
+<header>
+  <div class="container">
+    <div class="row">
+
+      <div class="col-6">
+        <h1>Coding Assassins</h1>
+      </div>
+
+      <div class="col-6">
+        <nav class="navbar navbar-expand-lg">
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav nav">
+              <a class="nav-item nav-link active" href="/"><span class="aWhite">Home</span></a>
+              <a class="nav-item nav-link" href="#"></a>
+              <a class="nav-item nav-link" href="#"></a>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div id="clientJobPost">
     <div class="container">
         <div class="row">
             <div class="col-8 offset-2">
                 <h2>Job Request Page!</h2>
+
+                <h3 id="hired"></h3>
+                <br>
 
                 <form class="clearfix mb-4" action="POST">          
                     <div class="form-group">
@@ -22,13 +48,11 @@
 
                     <div class="form-group">
                         <label for="jobDescription">Job Description</label>
-                        <textarea class="form-control" id="jobDescription" aria-describedby="jobDescription" placeholder="Enter The Request Job Description"></textarea>
+                        <textarea class="form-control" id="jobDescription" aria-describedby="jobDescription" placeholder="Enter The Job Description"></textarea>
                     </div>
 
                     <button id="jobSubmit" class="btn btn-primary float-right">Submit</button>
-
                 </form>
-
             </div>
         </div>
     </div>

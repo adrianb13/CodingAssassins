@@ -1,5 +1,8 @@
 .list-group-item {
-  line-height: 2.5;
+  line-height: 1.5;
+}
+.list-project-item {
+  line-height: 3;
 }
 
 /* Header CSS */
@@ -29,6 +32,19 @@ header {
   color: white;
   background-color: #31558e;
 }
+
+h2 {
+  color: white;
+  margin: 20px auto 20px auto;
+}
+
+h3 {
+  color: white;
+}
+
+label {
+  color: white;
+} 
 /* Header CSS */
 
 .display-4 {
@@ -57,6 +73,15 @@ header {
 .dev-button, .bus-button {
   margin-top: 25px;
   padding: 20px 60px 20px 60px;
+  font-size: 30px;
+  background-color: #31558e;
+  border-color: #31558e;
+  border-radius: 15px;
+}
+
+.bus-button2 {
+  margin-top: 25px;
+  padding: 10px 60px 10px 60px;
   font-size: 30px;
   background-color: #31558e;
   border-color: #31558e;
@@ -117,8 +142,12 @@ a {
 
 a:hover, a:visited, a:focus, a:link, a:active {
   text-decoration: none;
-  color: white;
+  color: black;
   
+}
+
+.aWhite {
+  color: white;
 }
 
 .dev-login-logo {

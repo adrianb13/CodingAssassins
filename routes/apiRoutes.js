@@ -22,6 +22,18 @@ module.exports = function(app) {
     });
   });
 
+  app.get("/api/developers/:name", function(req, res) {
+    db.Developers.findOne({
+      where: {
+        name: req.params.name
+      }
+    }).then(function(dbDevelopers) {
+      res.json(dbDevelopers);
+    }).catch(function(err) {
+      res.json(err);
+    });
+  });
+
 // Clients list for Developers
 app.get("/api/clients", function(req, res) {
   db.Clients.findAll({
@@ -35,7 +47,7 @@ app.get("/api/clients", function(req, res) {
   });
 });
 
-// Find A Certain Client
+// Find A Certain Client And All Jobs
   app.get("/api/clients", function(req, res) {
     db.Clients.findAll({
       where: {
@@ -43,8 +55,20 @@ app.get("/api/clients", function(req, res) {
       }
     }).then(function(dbClients) {
       res.json(dbClients);
-    })
-  })
+    });
+  });
+
+  app.get("/api/clients/:name", function(req, res) {
+    db.Clients.findOne({
+      where: {
+        name: req.params.name
+      }
+    }).then(function(dbClients) {
+      res.json(dbClients);
+    }).catch(function(err) {
+      res.json(err);
+    });
+  });
 
 // Developer Sign In
   app.get("/api/developers/:password", function(req, res) {
@@ -61,11 +85,11 @@ app.get("/api/clients", function(req, res) {
   app.put("/api/developers/:id", function(req, res) {
     db.Developers.update({
       hired: req.body.hired,
-      hired_by: req.body.name
+      hired_by: req.body.hired_by
     }, {
-    where: {
-      id: req.params.id
-    }
+      where: {
+        id: req.body.id
+      }
     }).then(function(dbDevelopers) {
       res.json(dbDevelopers)
     }).catch(function(err) {
@@ -117,9 +141,9 @@ app.get("/api/clients", function(req, res) {
 
   // Delete developer
   app.delete("/api/developers/:id", function(req, res) {
-    db.Developers.destroy({ 
-      where: { 
-        id: req.params.id } 
+    db.Developers.destroy({
+      where: {
+        id: req.params.id }
     }).then(function(dbDevelopers) {
       res.json(dbDevelopers);
     });
@@ -127,13 +151,11 @@ app.get("/api/clients", function(req, res) {
 
   // Delete A Job Request
   app.delete("/api/clients/:id", function(req, res) {
-    db.Clients.destroy({ 
-      where: { 
-        id: req.params.id } 
+    db.Clients.destroy({
+      where: {
+        id: req.params.id }
     }).then(function(dbClients) {
       res.json(dbClients);
     });
   });
-
 };
-
