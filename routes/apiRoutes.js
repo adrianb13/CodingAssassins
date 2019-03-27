@@ -79,22 +79,6 @@ app.get("/api/clients", function(req, res) {
     }).catch(function(err) {
       res.json(err);
     });
-  })
-
-// Hire Developers
-  app.put("/api/developers/:id", function(req, res) {
-    db.Developers.update({
-      hired: req.body.hired,
-      hired_by: req.body.hired_by
-    }, {
-      where: {
-        id: req.body.id
-      }
-    }).then(function(dbDevelopers) {
-      res.json(dbDevelopers)
-    }).catch(function(err) {
-      res.json(err);
-    });
   });
 
 // Developers Application
@@ -111,6 +95,7 @@ app.get("/api/clients", function(req, res) {
     });
   });
 
+// Create a new Client Job Post
   app.post("/api/clients", function(req, res) {
     db.Clients.create({
       name: req.body.name,
@@ -119,6 +104,22 @@ app.get("/api/clients", function(req, res) {
       job_requested: req.body.job_requested
     }).then(function(dbClients) {
       res.json(dbClients);
+    }).catch(function(err) {
+      res.json(err);
+    });
+  });
+
+// Hire Developers
+  app.put("/api/developers/:id", function(req, res) {
+    db.Developers.update({
+      hired: req.body.hired,
+      hired_by: req.body.hired_by
+    }, {
+      where: {
+        id: req.body.id
+      }
+    }).then(function(dbDevelopers) {
+      res.json(dbDevelopers)
     }).catch(function(err) {
       res.json(err);
     });
