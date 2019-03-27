@@ -146,6 +146,7 @@ console.log(newDeveloper);
 
   API.saveDeveloper(newDeveloper).then(function() {
     refreshDevelopers();
+    window.location.href = "/developer";
   });
 
   $developerName.val("");
@@ -203,9 +204,8 @@ var $clientList = $("#client-list");
 var refreshClients = function() {
   API.getClient().then(function(data) {
     var $Clients = data.map(function(newClient) {
-      var $a = $("<a>")
-        .text(newClient.name + "      " + newClient.phone_number)
-        .attr("href", "/Clients/" + newClient.id);
+      var $a = $("<a>").text(newClient.name + "'s requested job is: " + newClient.job_header);
+//        .attr("href", "/Clients/" + newClient.id);
 
       var $li = $("<li>")
         .attr({
@@ -214,11 +214,11 @@ var refreshClients = function() {
         })
         .append($a);
 
-      var $button = $("<button>")
-        .addClass("btn btn-danger float-right delete")
-        .text("ｘ");
+/*       var $button = $("<button>")
+        .addClass("btn btn-danger float-right")
+        .text(newClient.phone_number);
 
-      $li.append($button);
+      $li.append($button); */
 
       return $li;
     });

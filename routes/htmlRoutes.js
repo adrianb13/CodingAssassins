@@ -25,7 +25,7 @@ module.exports = function(app) {
   });
 
   app.get("/developerApp", function(req, res) {
-    res.render("deverloperApp", {
+    res.render("developerApp", {
       clients: res
     });
   });

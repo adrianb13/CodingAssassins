@@ -35,7 +35,7 @@ app.get("/api/clients", function(req, res) {
   });
 });
 
-// Find A Certain Client
+// Find A Certain Client And All Jobs
   app.get("/api/clients", function(req, res) {
     db.Clients.findAll({
       where: {
@@ -43,8 +43,20 @@ app.get("/api/clients", function(req, res) {
       }
     }).then(function(dbClients) {
       res.json(dbClients);
-    })
-  })
+    });
+  });
+
+  app.get("/api/clients/:name", function(req, res) {
+    db.Developers.findOne({
+      where: {
+        name: req.body.name
+      }
+    }).then(function(dbDevelopers) {
+      res.json(dbDevelopers);
+    }).catch(function(err) {
+      res.json(err);
+    });
+  });
 
 // Developer Sign In
   app.get("/api/developers/:password", function(req, res) {
