@@ -163,7 +163,8 @@ var handleFormSubmit = function(event) {
     console.log(result.id);
     localStorage.setItem("currDev", JSON.stringify(result.id));
     refreshDevelopers();
-//    window.location.href = "/developer";
+    alert("Thank you for working with Coding Assassins!!!")
+    window.location.href = "/developer";
   });
 
   $developerName.val("");
@@ -220,7 +221,7 @@ var completedJob = function() {
     }
     API.completeClient(completed).then(function(response) {
       console.log(response);
-//      window.location.href = "/developer";
+      window.location.href = "/developer";
     });
   });
 }

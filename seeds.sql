@@ -35,4 +35,3 @@ VALUES("Jacob", "678-678-6677", "Need an app made", "App needs to be able to hel
 USE developerdb;
 SELECT * FROM developers;
 SELECT * FROM clients;
-
