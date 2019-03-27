@@ -155,7 +155,10 @@ var handleHireBtnClick = function() {
   nameToHire = $(this)
     .parent()
     .attr("data-name");
-  console.log(idToHire + " : " + nameToHire)
+  console.log(idToHire + " : " + nameToHire);
+  localStorage.setItem("idHire", JSON.stringify(idToHire));
+  localStorage.setItem("nameHire", nameToHire);
+
   API.getOneDeveloper(idToHire).then(function(response) {
     console.log(response.name);
     window.location.href = "/clientJobPost";
@@ -207,7 +210,12 @@ var refreshClients = function() {
 refreshClients();
 
 // Save Job Request
-$("#hired").text("You want to hire " + nameToHire + ". Tell him what you would like to do below");
+var devId = localStorage.getItem("idHire");
+  devId = JSON.parse(devId);
+var devName = localStorage.getItem("nameHire");
+
+$("#hired").text("You want to hire " + devName + ". Tell him what you would like to do below");
+
 var handleFormSubmit2 = function(event) {
   event.preventDefault();
 
@@ -226,18 +234,18 @@ console.log(newClient);
   }
 
   API.saveClient(newClient).then(function(response) {
-    console.log("...>" + idToHire)
+    console.log("...>" + devId)
     console.log("...>" + response.name)
     var hired = {
-      id: idToHire,
+      id: devId,
       hired_by: response.name
     };
 
     API.hireDeveloper(hired).then(function(response) {
-      console.log(response[0])
+      console.log(response[0]);
       refreshClients();
       refreshDevelopers();
-      $("#hired").text(nameToHire + " has been notified! Thank you for using our service!")
+      $("#hired").text(devName + " has been notified! Thank you for using our service!")
       idToHire = 0;
       nameToHire = " ";
     });

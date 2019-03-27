@@ -61,7 +61,7 @@ app.get("/api/clients", function(req, res) {
   app.put("/api/developers/:id", function(req, res) {
     db.Developers.update({
       hired: true,
-      hired_by: req.body.name
+      hired_by: req.body.hired_by
     }, {
       where: {
         id: req.body.id
