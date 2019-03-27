@@ -8,13 +8,13 @@ ALTER TABLE clients CHANGE COLUMN createdAt createdAt datetime NOT NULL DEFAULT 
 ALTER TABLE clients CHANGE COLUMN updatedAt updatedAt datetime NOT NULL DEFAULT CURRENT_TIMESTAMP;
 
 INSERT INTO developers(name, experience, cost_to_hire, password)
-VALUES("Fredrick", "Current student", 300, 1234),
-    ("Larry", "I've made a website before", 200, 1232),
+VALUES("Fredrick", "Current student in Web Development", 300, 1234),
+    ("Larry", "I've made a few websites already", 200, 1232),
     ("Lorietta", "One year experience in CSS and HTML", 400, 1232),
-    ("Londre", "Graduate from UCLA", 700, 9000),
+    ("Londre", "Graduated from UCLA as a Programmer", 700, 9000),
     ("Junior", "5 years as a Senior Full Stack Developer", 1000, 8929),
     ("Heather", "Worked for Google for three years", 600, 2902),
-    ("Jerry", "UCSD bootcamp", 200, 0910),
+    ("Jerry", "UCSD Coding Bootcamp Student", 200, 0910),
     ("Josh", "Learned coding on my own", 100, 9201),
     ("Adrian", "Graduate of Computer Science from Yale", 800, 8292),
     ("Gerald", "Graduate from MIT", 900, 1012);
