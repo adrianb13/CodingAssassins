@@ -60,11 +60,11 @@ app.get("/api/clients", function(req, res) {
 // Hire Developers
   app.put("/api/developers/:id", function(req, res) {
     db.Developers.update({
-      hired: req.body.hired,
+      hired: true,
       hired_by: req.body.name
     }, {
       where: {
-        id: req.params.id
+        id: req.body.id
       }
     }).then(function(dbDevelopers) {
       res.json(dbDevelopers)

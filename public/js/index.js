@@ -5,6 +5,7 @@ var $cost = $("#cost");
 var $password = $("#password")
 var $submit = $("#submit");
 var $developerList = $("#developer-list");
+var $hire = $(".hire");
 
 // The API object contains methods for each kind of request we'll make
 var API = {
@@ -25,10 +26,20 @@ var API = {
       type: "GET"
     });
   },
-  getOneDeveloper: function() {
+  getOneDeveloper: function(id) {
     return $.ajax({
-      url: "api/developers/:id",
+      url: "api/developers/" + id,
       type: "GET"
+    });
+  },
+  hireDeveloper: function(data) {
+    return $.ajax({
+      headers: {
+        "Content-Type": "application/json"
+      },
+      url: "api/developers/" + data.id,
+      type: "PUT",
+      data: JSON.stringify(data)
     });
   },
   deleteDeveloper: function(id) {
@@ -65,17 +76,8 @@ var API = {
 // refreshExamples gets new examples from the db and repopulates the list
 var refreshDevelopers = function() {
   API.getDeveloper().then(function(data) {
-/*     var rows = [];
-    for (i = 0; i < data.length; i++) {
-      rows.push(createDeveloper(data[i]));
-    }
-    $("<tbody>").append(rows);
-  })
-}; */
     var $Developers = data.map(function(newDeveloper) {
-      var $a = $("<a>")
-        .text(newDeveloper.name + "      " + newDeveloper.cost_to_hire)
-        .attr("href", "/developers/" + newDeveloper.id);
+      var $a = $("<a>").text(newDeveloper.name + "'s Experience is: " + newDeveloper.experience)
 
       var $li = $("<li>")
         .attr({
@@ -86,7 +88,8 @@ var refreshDevelopers = function() {
 
       var $button = $("<button>")
         .addClass("btn btn-danger float-right hire")
-        .text("Hire");
+        .attr("href", "/clientJobPost")
+        .text("Hire: $" + newDeveloper.cost_to_hire)
 
       $li.append($button);
 
@@ -98,16 +101,6 @@ var refreshDevelopers = function() {
   });
 };
 refreshDevelopers();
-
-function createDeveloper(developer) {
-  var newTr = $("<tr>");
-    newTr.data("developers", developer);
-    newTr.append("<td>" + developer.name + "</td>");
-    newTr.append("<td>" + developer.experience + "</td>");
-    newTr.append("<td>" + developer.cost_to_hire + "</td>");
-    newTr.append("<td>" + developer.hired + "</td>");
-  return newTr;
-};
 
 // handleFormSubmit is called whenever we submit a new Developer
 // Save the new Developer to the db and refresh the list
@@ -152,19 +145,27 @@ var handleDeleteBtnClick = function() {
   });
 };
 
+var idToHire = 0;
+var hiredDev;
 var handleHireBtnClick = function() {
-  var idToHire = $(this)
+  idToHire = $(this)
     .parent()
     .attr("data-id");
 
-  API.hireDeveloper(idToHire).then(function() {
-    refreshDevelopers();
+//  window.location.href = "/clientJobPost";
+  
+  API.getOneDeveloper(idToHire).then(function(response) {
+    $("#hired").text("You want to hire " + response.name + ". Tell him what you would like to do below");
+    console.log(response.name);
+    hiredDev = response.name
+//    refreshDevelopers();
   });
 };
 
 // Add event listeners to the submit and delete buttons
 $submit.on("click", handleFormSubmit);
 $developerList.on("click", ".delete", handleDeleteBtnClick);
+$developerList.on("click", ".hire", handleHireBtnClick);
 
 /////////////////////////////////////////////////
 var $clientName = $("#clientName");
@@ -219,12 +220,26 @@ console.log(newClient);
   if (!(newClient.name && newClient.phone_number && newClient.job_header && newClient.job_requested)) {
     alert("You must enter your name, phone number, job header and description!");
     return;
-  }/*  else if (isNaN(newClient.phone_number)) {
-    alert("You must enter numbers for your phone number.")
-  } */
+  } else if (idToHire === 0) {
+    alert("Please select a developer to hire for the job");
+  }
 
-  API.saveClient(newClient).then(function() {
-    refreshClients();
+  API.saveClient(newClient).then(function(response) {
+    console.log("...>" + idToHire)
+    console.log("...>" + response.name)
+    var hired = {
+      id: idToHire,
+      hired_by: response.name
+    };
+
+    API.hireDeveloper(hired).then(function(response) {
+      console.log(response[0])
+      refreshClients();
+      refreshDevelopers();
+      $("#hired").text(hiredDev + " has been notified! Thank you for using our service!")
+      idToHire = 0;
+      hiredDev = " ";
+    });
   });
 
   $clientName.val("");

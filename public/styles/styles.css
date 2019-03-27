@@ -29,6 +29,19 @@ header {
   color: white;
   background-color: #31558e;
 }
+
+h2 {
+  color: white;
+}
+
+h3 {
+  color: white;
+  background-color: blue;
+}
+
+label {
+  color: white;
+} 
 /* Header CSS */
 
 .display-4 {
@@ -112,13 +125,17 @@ header {
 }
 
 a {
-  color: white;
+  color: black;
 }
 
 a:hover, a:visited, a:focus, a:link, a:active {
   text-decoration: none;
-  color: white;
+  color: black;
   
+}
+
+.aWhite {
+  color: white;
 }
 
 .dev-login-logo {
