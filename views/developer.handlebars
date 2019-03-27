@@ -25,14 +25,22 @@
   <div class="container">
     <div class="row">
       <div class="col-8 offset-2">
-
-      <button id="clientPage" class="btn-success bus-button projects"><h2 class="aWhite">View Your Projects</h2></button>
+      <div class="text-center">
+        <button id="clientPage" class="btn-success bus-button2 projects"><h2 class="aWhite">View Your Projects</h2></button>
+      </div>
+      <br>
+      <div id="current=client">
+        <div id="single-project">
+          <p id= "list-project" ></p>
+          <span id= "list-description"></span>
+        </div>
+      </div>
 
       <h2>Clients List:</h2>
         <ul id="client-list" class="list-group">
             {{#each clients}}
-            <li data-id="{{id}}" class="list-group-item">{{name}}
-                <a href="clients/{{id}}">{{name}}</a>
+            <li data-id="{{id}}" class="list-group-item">
+                <a>{{this.name}}</a>
             </li>
             {{/each}}
         </ul>

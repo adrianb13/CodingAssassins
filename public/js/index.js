@@ -6,7 +6,8 @@ var $password = $("#password")
 var $submit = $("#submit");
 var $developerList = $("#developer-list");
 var $developerHired = $("#developerHired-list");
-var $hire = $(".hire");
+var $projects = $(".projects");
+var $currClient = $("#current-client");
 
 // The API object contains methods for each kind of request we'll make
 var API = {
@@ -66,6 +67,12 @@ var API = {
       type: "GET"
     });
   },
+  getOneClient: function(data) {
+    return $.ajax({
+      url: "api/clients/" + data.name,
+      type: "GET"
+    });
+  },
   deleteClient: function(id) {
     return $.ajax({
       url: "api/clients/" + id,
@@ -100,7 +107,7 @@ var refreshDevelopers = function() {
       }
     });
 
-    var $DevelopersHired =data.map(function(developer){
+    var $DevelopersHired = data.map(function(developer){
       if(developer.hired === true) {
       var $a = $("<a>").text(developer.name + "'s Experience is: " + developer.experience)
 
@@ -135,8 +142,6 @@ var handleFormSubmit = function(event) {
     password: $password.val().trim() 
   };
 
-console.log(newDeveloper);
-
   if (!(newDeveloper.name && newDeveloper.experience && newDeveloper.cost_to_hire && newDeveloper.password)) {
     alert("You must enter your name, experience, cost to hire, and password!");
     return;
@@ -144,9 +149,11 @@ console.log(newDeveloper);
     alert("You must enter numbers for your cost to hire and 4-Digit PIN/Password.")
   }
 
-  API.saveDeveloper(newDeveloper).then(function() {
+  API.saveDeveloper(newDeveloper).then(function(result) {
+    console.log(result.id);
+    localStorage.setItem("currDev", JSON.stringify(result.id));
     refreshDevelopers();
-    window.location.href = "/developer";
+//    window.location.href = "/developer";
   });
 
   $developerName.val("");
@@ -154,6 +161,31 @@ console.log(newDeveloper);
   $cost.val("");
   $password.val("");
 };
+//var currDev = localStorage.getItem("currDev");
+//  currDev = JSON.parse(currDev);
+var currDev = 10;
+var currProject = 0;
+var handleViewProject = function() {
+  API.getOneDeveloper(currDev).then(function(currClient) {
+    var hiredBy = currClient.hired_by;
+    console.log(hiredBy)
+    var client = {
+      name: hiredBy
+    };
+    API.getOneClient(client).then(function(project) {
+
+      $("#single-project").attr({class: "list-group-item list-project-item", "data-id": project.id})      
+      $("#list-project").text(project.name + "'s requested job is: " + project.job_header);
+      $button = $("<button>")
+        .addClass("btn btn-success float-right completed")
+        .text("Completed");
+      $("#single-project").append($button);
+      $("#list-description").text(project.job_requested);
+      console.log($("#single-project").attr("data-id"));
+    });
+  });
+};
+$projects.on("click", handleViewProject)
 
 // handleDeleteBtnClick is called when an Developer's delete button is clicked
 // Remove the Developer from the db and refresh the list
@@ -183,8 +215,6 @@ var handleHireBtnClick = function() {
   API.getOneDeveloper(idToHire).then(function(response) {
     console.log(response.name);
     window.location.href = "/clientJobPost";
-
-//    refreshDevelopers();
   });
 };
 
@@ -256,9 +286,12 @@ console.log(newClient);
   API.saveClient(newClient).then(function(response) {
     console.log("...>" + devId)
     console.log("...>" + response.name)
+    var newProject = response.name
+      newProject.attr({"data-id": response.id})
     var hired = {
       id: devId,
-      hired_by: response.name
+      hired: true,
+      hired_by: newProject
     };
 
     API.hireDeveloper(hired).then(function(response) {

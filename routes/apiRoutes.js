@@ -22,6 +22,18 @@ module.exports = function(app) {
     });
   });
 
+  app.get("/api/developers/:name", function(req, res) {
+    db.Developers.findOne({
+      where: {
+        name: req.params.name
+      }
+    }).then(function(dbDevelopers) {
+      res.json(dbDevelopers);
+    }).catch(function(err) {
+      res.json(err);
+    });
+  });
+
 // Clients list for Developers
 app.get("/api/clients", function(req, res) {
   db.Clients.findAll({
@@ -47,12 +59,12 @@ app.get("/api/clients", function(req, res) {
   });
 
   app.get("/api/clients/:name", function(req, res) {
-    db.Developers.findOne({
+    db.Clients.findOne({
       where: {
-        name: req.body.name
+        name: req.params.name
       }
-    }).then(function(dbDevelopers) {
-      res.json(dbDevelopers);
+    }).then(function(dbClients) {
+      res.json(dbClients);
     }).catch(function(err) {
       res.json(err);
     });
@@ -72,7 +84,7 @@ app.get("/api/clients", function(req, res) {
 // Hire Developers
   app.put("/api/developers/:id", function(req, res) {
     db.Developers.update({
-      hired: true,
+      hired: req.body.hired,
       hired_by: req.body.hired_by
     }, {
       where: {
