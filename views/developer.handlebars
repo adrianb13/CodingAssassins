@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-8 offset-2">
 
-      <h3>Clients List:</h3>
+      <h2>Clients List:</h2>
         <ul id="client-list" class="list-group">
             {{#each clients}}
             <li data-id="{{id}}" class="list-group-item">{{name}}
@@ -12,33 +12,34 @@
             {{/each}}
         </ul>
 
-        <h2>Developer Application Page!</h2>
+      <br>
 
-        <form class="clearfix mb-4" action="POST">          
-          <div class="form-group">
-            <label for="developerName">Developer</label>
-            <input type="text" id="developerName" class="form-control" aria-describedby="developerName" placeholder="Enter Full Name">
-          </div>
+      <h2>Developer Application Page!</h2>
 
-          <div class="form-group">
-            <label for="experience">Experience</label>
-            <textarea class="form-control" id="experience" aria-describedby="experience" placeholder="Enter Experience"></textarea>
-          </div>
+      <form class="clearfix mb-4" action="POST">          
+        <div class="form-group">
+          <label for="developerName">Developer</label>
+          <input type="text" id="developerName" class="form-control" aria-describedby="developerName" placeholder="Enter Full Name">
+        </div>
 
-          <div class="form-group">
-            <label for="cost">Cost To Hire ($)</label>
-            <input type="text" class="form-control" id="cost" aria-describedby="cost" placeholder="Enter Cost To Hire (Do Not Include $)">
-          </div>
+        <div class="form-group">
+          <label for="experience">Experience</label>
+          <textarea class="form-control" id="experience" aria-describedby="experience" placeholder="Enter Experience"></textarea>
+        </div>
 
-          <div class="form-group">
-            <label for="password">4-Digit PIN</label>
-            <input class="form-control" id="password" aria-describedby="password" placeholder="Enter A 4-Digit PIN">
-          </div>
+        <div class="form-group">
+          <label for="cost">Cost To Hire ($)</label>
+          <input type="text" class="form-control" id="cost" aria-describedby="cost" placeholder="Enter Cost To Hire (Do Not Include $)">
+        </div>
 
-          <button id="submit" class="btn btn-primary float-right">Submit</button>
+        <div class="form-group">
+          <label for="password">4-Digit PIN</label>
+          <input class="form-control" id="password" aria-describedby="password" placeholder="Enter A 4-Digit PIN">
+        </div>
 
-        </form>
-        
+        <button id="submit" class="btn btn-primary float-right">Submit</button>
+      </form>
+
       </div>
     </div>
   </div>

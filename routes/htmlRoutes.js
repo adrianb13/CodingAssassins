@@ -13,12 +13,17 @@ module.exports = function(app) {
     });
   });
 
+  app.get("/clientJobPost", function(req, res) {
+    res.render("clientJobPost", res)
+  });
+
   //Load Developer Page to show Clients
   app.get("/developer", function(req, res) {
-    res.render("index", {
+    res.render("developer", {
       clients: res
     });
   });
+
 
   // Render 404 page for any unmatched routes
   app.get("*", function(req, res) {

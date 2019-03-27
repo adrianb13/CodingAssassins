@@ -32,11 +32,11 @@ header {
 
 h2 {
   color: white;
+  margin: 20px auto 20px auto;
 }
 
 h3 {
   color: white;
-  background-color: blue;
 }
 
 label {

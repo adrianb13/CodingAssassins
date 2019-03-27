@@ -82,7 +82,8 @@ var refreshDevelopers = function() {
       var $li = $("<li>")
         .attr({
           class: "list-group-item",
-          "data-id": newDeveloper.id
+          "data-id": newDeveloper.id,
+          "data-name": newDeveloper.name
         })
         .append($a);
 
@@ -146,18 +147,19 @@ var handleDeleteBtnClick = function() {
 };
 
 var idToHire = 0;
-var hiredDev;
+var nameToHire = "";
 var handleHireBtnClick = function() {
   idToHire = $(this)
     .parent()
     .attr("data-id");
-
-//  window.location.href = "/clientJobPost";
-  
+  nameToHire = $(this)
+    .parent()
+    .attr("data-name");
+  console.log(idToHire + " : " + nameToHire)
   API.getOneDeveloper(idToHire).then(function(response) {
-    $("#hired").text("You want to hire " + response.name + ". Tell him what you would like to do below");
     console.log(response.name);
-    hiredDev = response.name
+    window.location.href = "/clientJobPost";
+
 //    refreshDevelopers();
   });
 };
@@ -192,7 +194,7 @@ var refreshClients = function() {
       var $button = $("<button>")
         .addClass("btn btn-danger float-right delete")
         .text("ｘ");
- 
+
       $li.append($button);
 
       return $li;
@@ -205,6 +207,7 @@ var refreshClients = function() {
 refreshClients();
 
 // Save Job Request
+$("#hired").text("You want to hire " + nameToHire + ". Tell him what you would like to do below");
 var handleFormSubmit2 = function(event) {
   event.preventDefault();
 
@@ -220,8 +223,6 @@ console.log(newClient);
   if (!(newClient.name && newClient.phone_number && newClient.job_header && newClient.job_requested)) {
     alert("You must enter your name, phone number, job header and description!");
     return;
-  } else if (idToHire === 0) {
-    alert("Please select a developer to hire for the job");
   }
 
   API.saveClient(newClient).then(function(response) {
@@ -236,9 +237,9 @@ console.log(newClient);
       console.log(response[0])
       refreshClients();
       refreshDevelopers();
-      $("#hired").text(hiredDev + " has been notified! Thank you for using our service!")
+      $("#hired").text(nameToHire + " has been notified! Thank you for using our service!")
       idToHire = 0;
-      hiredDev = " ";
+      nameToHire = " ";
     });
   });
 

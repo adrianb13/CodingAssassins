@@ -3,21 +3,20 @@
         <div class="row">
             <div class="col-8 offset-2">
                 <h2>Developers To Hire</h2>
-
                 <ul id="developer-list" class="list-group">
                     {{#each Developers}}
                         {{#unless this.hired}}
-                    <li data-id="{{this.id}}" class="list-group-item">
+                    <li data-id="{{this.id}}" data-name="{{this.name}}" class="list-group-item">
                         <a data-id="{{this.id}}">{{this.name}}</a>
                         <button class="btn btn-danger float-right hire"><span>{{this.cost_to_hire}}</span></button>
                     </li>
                         {{/unless}}
                     {{/each}}
                 </ul>
+
                 <br>
-                <h3 id="hired"></h3>
-                <br>
-                <h2>Hire A Developer And Then Post Your Job Request</h2>
+
+{{!--                 <h2>Hire A Developer And Then Post Your Job Request</h2>
 
                 <form class="clearfix mb-4" action="POST">          
                     <div class="form-group">
@@ -42,7 +41,7 @@
 
                     <button id="jobSubmit" class="btn btn-primary float-right">Submit</button>
                 </form>
-
+ --}}
             </div>
         </div>
     </div>
