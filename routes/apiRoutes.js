@@ -63,9 +63,9 @@ app.get("/api/clients", function(req, res) {
       hired: req.body.hired,
       hired_by: req.body.name
     }, {
-    where: {
-      id: req.params.id
-    }
+      where: {
+        id: req.params.id
+      }
     }).then(function(dbDevelopers) {
       res.json(dbDevelopers)
     }).catch(function(err) {
@@ -117,9 +117,9 @@ app.get("/api/clients", function(req, res) {
 
   // Delete developer
   app.delete("/api/developers/:id", function(req, res) {
-    db.Developers.destroy({ 
-      where: { 
-        id: req.params.id } 
+    db.Developers.destroy({
+      where: {
+        id: req.params.id }
     }).then(function(dbDevelopers) {
       res.json(dbDevelopers);
     });
@@ -127,13 +127,11 @@ app.get("/api/clients", function(req, res) {
 
   // Delete A Job Request
   app.delete("/api/clients/:id", function(req, res) {
-    db.Clients.destroy({ 
-      where: { 
-        id: req.params.id } 
+    db.Clients.destroy({
+      where: {
+        id: req.params.id }
     }).then(function(dbClients) {
       res.json(dbClients);
     });
   });
-
 };
-
