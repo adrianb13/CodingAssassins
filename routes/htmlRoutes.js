@@ -3,20 +3,30 @@ var db = require("../models");
 module.exports = function(app) {
   // Load index page
   app.get("/", function(req, res) {
-    db.Example.findAll({}).then(function(dbExamples) {
-      res.render("index", {
-        msg: "Welcome!",
-        examples: dbExamples
-      });
+    res.render("index", res);
+  });
+
+  //Load Client Page to show Developers
+  app.get("/client", function(req, res) {
+    res.render("client", {
+      developers: res
     });
   });
 
-  // Load example page and pass in an example by id
-  app.get("/example/:id", function(req, res) {
-    db.Example.findOne({ where: { id: req.params.id } }).then(function(dbExample) {
-      res.render("example", {
-        example: dbExample
-      });
+  app.get("/clientJobPost", function(req, res) {
+    res.render("clientJobPost", res)
+  });
+
+  //Load Developer Page to show Clients
+  app.get("/developer", function(req, res) {
+    res.render("developer", {
+      clients: res
+    });
+  });
+
+  app.get("/developerApp", function(req, res) {
+    res.render("developerApp", {
+      clients: res
     });
   });
 

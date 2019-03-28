@@ -1,32 +1,48 @@
-<div id="home">
+<header>
   <div class="container">
     <div class="row">
-      <div class="col-8 offset-2">
-        <h1>{{msg}}</h1>
-        <h2>This is our Home Page!</h2>
-        <form class="clearfix mb-4" action="POST">
-          <div class="form-group">
-            <label for="example-text">Example Text</label>
-            <input type="text" id="example-text" class="form-control" aria-describedby="example-text" placeholder="Enter Example Text">
+
+      <div class="col-6">
+        <h1>Coding Assassins</h1>
+      </div>
+
+      <div class="col-6">
+        <nav class="navbar navbar-expand-lg">
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav nav">
+              <a class="nav-item nav-link active" href="/"><span class="aWhite">Home</span></a>
+              <a class="nav-item nav-link" href="#"></a>
+              <a class="nav-item nav-link" href="#"></a>
+            </div>
           </div>
-          <div class="form-group">
-            <label for="example-description">Example Description</label>
-            <textarea class="form-control" id="example-description" aria-describedby="example-description" placeholder="Enter Example Description"></textarea>
-          </div>
-          <button id="submit" class="btn btn-primary float-right">Submit</button>
-        </form>
-        <h3>Examples:</h3>
-        <ul id="example-list" class="list-group">
-          {{#each examples}}
-          <li data-id="{{this.id}}" class="list-group-item">
-            <a href="example/{{this.id}}">{{this.text}}</a>
-            <button class="btn btn-danger float-right delete">ｘ</button>
-          </li>
-          {{/each}}
-        </ul>
+        </nav>
       </div>
     </div>
   </div>
+</header>
+
+<div class="container dev-login">
+  <div class="dev-login-logo">Developer Log-In (Assassins)</div>
+  <form>
+    <div class="form-group">
+      <label for="nameInput">Name</label>
+      <input type="email" class="form-control" id="nameInput" aria-describedby="nameInput"
+        placeholder="Enter Name">
+      <small id="nameHelp" class="form-text text-muted">Welcome Back!!!</small>
+    </div>
+    <div class="form-group">
+      <label for="passwordInput">Password</label>
+      <input type="text" class="form-control" id="passwordInput" placeholder="4-Digit PIN/Password">
+    </div>
+    <button type="submit" class="btn btn-primary">Login</button>
+    <button class="btn btn-success new-dev"><a href="/developerApp">Create Account</a></button>
+  </form>
+</div>
+
+
+<div class="container home-content">
+  <p class="content-head">Clients Enter Here!</p>
+  <button id="clientPage" class="btn btn-danger bus-button"><a class="aWhite" href="/client">Clients</a></button>
 </div>
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
