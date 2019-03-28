@@ -1,0 +1,81 @@
+<header>
+  <div class="container">
+    <div class="row">
+
+      <div class="col-6">
+        <h1>Coding Assassins</h1>
+      </div>
+
+      <div class="col-6">
+        <nav class="navbar navbar-expand-lg">
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav nav">
+              <a class="nav-item nav-link active aWhite" href="/"><span class="aWhite">Home</span></a>
+              <a class="nav-item nav-link" href="#"></a>
+              <a class="nav-item nav-link" href="#"></a>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div id="Client">
+    <div class="container">
+        <div class="row">
+            <div class="col-8 offset-2 to-hire">
+                <h2>Developers To Hire</h2>
+                <ul id="developer-list" class="list-group">
+                    {{#each Developers}}
+                    <li data-id="{{this.id}}" data-name="{{this.name}}" class="list-group-item">
+                        <a data-id="{{this.id}}">{{this.name}}</a>
+                        <button class="btn btn-danger float-right hire"><span>{{this.cost_to_hire}}</span></button>
+                    </li>
+                    {{/each}}
+                </ul>
+
+                <br>
+
+                <h2>Hired Developers</h2>
+                <ul id="developerHired-list" class="list-group">
+                    {{#each Developers}}
+                    <li data-id="{{this.id}}" data-name="{{this.name}}" class="list-group-item">
+                        <a data-id="{{this.id}}">{{this.name}}</a>
+                    </li>
+                    {{/each}}
+                </ul>
+
+{{!--                 <h2>Hire A Developer And Then Post Your Job Request</h2>
+
+                <form class="clearfix mb-4" action="POST">          
+                    <div class="form-group">
+                        <label for="clientName">Full Name</label>
+                        <input type="text" id="clientName" class="form-control" aria-describedby="clientName" placeholder="Enter Full Name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phoneNumber">Phone Number (Ex: 619-555-1234)</label>
+                        <input type="tel" id="phoneNumber" class="form-control" aria-describedby="phoneNumber" placeholder="Enter Phone Number;  619-555-1234" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="jobHeader">Job Header</label>
+                        <input type="text" class="form-control" id="jobHeader" aria-describedby="jobHeader" placeholder="Enter A Job Header">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="jobDescription">Job Description</label>
+                        <textarea class="form-control" id="jobDescription" aria-describedby="jobDescription" placeholder="Enter The Request Job Description"></textarea>
+                    </div>
+
+                    <button id="jobSubmit" class="btn btn-primary float-right">Submit</button>
+                </form>
+ --}}
+            </div>
+        </div>
+    </div>
+</div>  
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
