@@ -399,3 +399,8 @@ var developerLogin = function() {
   });
  };
  $submitButtonLogin.on("click", developerLogin);
+
+$("#logout").on("click", function() {
+  localStorage.setItem("currDev", 0);
+  window.location.href = "/"; 
+});
