@@ -73,6 +73,16 @@ var API = {
       type: "GET"
     });
   },
+  completeClient: function(data) {
+    return $.ajax({
+      headers: {
+        "Content-Type": "application/json"
+      },
+      url: "api/clients/" + data.id,
+      type: "PUT",
+      data: JSON.stringify(data)
+    });
+  },
   deleteClient: function(id) {
     return $.ajax({
       url: "api/clients/" + id,
@@ -86,40 +96,40 @@ var refreshDevelopers = function() {
   API.getDeveloper().then(function(data) {
     var $Developers = data.map(function(newDeveloper) {
       if (newDeveloper.hired === false) {
-      var $a = $("<a>").text(newDeveloper.name + "'s Experience is: " + newDeveloper.experience)
+        var $a = $("<a>").text(newDeveloper.name + "'s Experience is: " + newDeveloper.experience)
 
-      var $li = $("<li>")
-        .attr({
-          class: "list-group-item",
-          "data-id": newDeveloper.id,
-          "data-name": newDeveloper.name
-        })
-        .append($a);
+        var $li = $("<li>")
+          .attr({
+            class: "list-group-item",
+            "data-id": newDeveloper.id,
+            "data-name": newDeveloper.name
+          })
+          .append($a);
 
-      var $button = $("<button>")
-        .addClass("btn btn-danger float-right hire")
-        .attr("href", "/clientJobPost")
-        .text("Hire: $" + newDeveloper.cost_to_hire)
+        var $button = $("<button>")
+          .addClass("btn btn-danger float-right hire")
+          .attr("href", "/clientJobPost")
+          .text("Hire: $" + newDeveloper.cost_to_hire)
 
-      $li.append($button);
+        $li.append($button);
 
-      return $li;
+        return $li;
       }
     });
 
     var $DevelopersHired = data.map(function(developer){
-      if(developer.hired === true) {
-      var $a = $("<a>").text(developer.name + "'s Experience is: " + developer.experience)
+      if (developer.hired === true) {
+        var $a = $("<a>").text(developer.name + "'s Experience is: " + developer.experience)
 
-      var $li = $("<li>")
-        .attr({
-          class: "list-group-item",
-          "data-id": developer.id,
-          "data-name": developer.name
-        })
-        .append($a);
+        var $li = $("<li>")
+          .attr({
+            class: "list-group-item",
+            "data-id": developer.id,
+            "data-name": developer.name
+          })
+          .append($a);
 
-      return $li;
+        return $li;
       }
     });
 
@@ -161,12 +171,17 @@ var handleFormSubmit = function(event) {
   $cost.val("");
   $password.val("");
 };
+
 //var currDev = localStorage.getItem("currDev");
 //  currDev = JSON.parse(currDev);
 var currDev = 10;
 var currProject = 0;
+// handleViewProject handles the button click for a Developer to view an existing project he is hired for.
 var handleViewProject = function() {
   API.getOneDeveloper(currDev).then(function(currClient) {
+    if (currClient.hired === false) {
+      alert("Sorry, you have not been hired for a project yet.")
+    }
     var hiredBy = currClient.hired_by;
     console.log(hiredBy)
     var client = {
@@ -175,17 +190,40 @@ var handleViewProject = function() {
     API.getOneClient(client).then(function(project) {
 
       $("#single-project").attr({class: "list-group-item list-project-item", "data-id": project.id})      
-      $("#list-project").text(project.name + "'s requested job is: " + project.job_header);
+      $("#list-project").text(project.name + "'s contact info is: " + project.phone_number);
       $button = $("<button>")
         .addClass("btn btn-success float-right completed")
         .text("Completed");
       $("#single-project").append($button);
       $("#list-description").text(project.job_requested);
-      console.log($("#single-project").attr("data-id"));
+
+      currProject = $("#single-project").attr("data-id");
+      console.log(currProject);
     });
   });
 };
-$projects.on("click", handleViewProject)
+
+// handles when complete is clicked by the developer
+var completedJob = function() {
+  var notHired = {
+    id: currDev,
+    hired: false,
+    hired_by: null
+  }
+  API.hireDeveloper(notHired).then(function(response) {
+    console.log("hired?: " + response[0]);
+    refreshClients();
+//    alert("Thank you for finishing your hired project!!! You are back on the list to accept another project!")
+    var completed = {
+      id: currProject,
+      job_completed: true
+    }
+    API.completeClient(completed).then(function(response) {
+      console.log(response);
+//      window.location.href = "/developer";
+    });
+  });
+}
 
 // handleDeleteBtnClick is called when an Developer's delete button is clicked
 // Remove the Developer from the db and refresh the list
@@ -201,6 +239,7 @@ var handleDeleteBtnClick = function() {
 
 var idToHire = 0;
 var nameToHire = "";
+// handleHireBtnClick is called when a Client hires a specific developer.
 var handleHireBtnClick = function() {
   idToHire = $(this)
     .parent()
@@ -222,6 +261,8 @@ var handleHireBtnClick = function() {
 $submit.on("click", handleFormSubmit);
 $developerList.on("click", ".delete", handleDeleteBtnClick);
 $developerList.on("click", ".hire", handleHireBtnClick);
+$projects.on("click", handleViewProject);
+$currClient.on("click", ".completed", completedJob);
 
 /////////////////////////////////////////////////
 var $clientName = $("#clientName");
@@ -234,23 +275,25 @@ var $clientList = $("#client-list");
 var refreshClients = function() {
   API.getClient().then(function(data) {
     var $Clients = data.map(function(newClient) {
-      var $a = $("<a>").text(newClient.name + "'s requested job is: " + newClient.job_header);
-//        .attr("href", "/Clients/" + newClient.id);
+      if (newClient.job_completed === false) {
+        var $a = $("<a>").text(newClient.name + "'s requested job is: " + newClient.job_header);
+//          .attr("href", "/Clients/" + newClient.id);
 
-      var $li = $("<li>")
-        .attr({
-          class: "list-group-item",
-          "data-id": newClient.id
-        })
-        .append($a);
+        var $li = $("<li>")
+          .attr({
+            class: "list-group-item",
+            "data-id": newClient.id
+          })
+          .append($a);
 
-/*       var $button = $("<button>")
-        .addClass("btn btn-danger float-right")
-        .text(newClient.phone_number);
+/*         var $button = $("<button>")
+          .addClass("btn btn-danger float-right")
+          .text(newClient.phone_number);
 
-      $li.append($button); */
+        $li.append($button); */
 
-      return $li;
+        return $li;
+      }
     });
 
     $clientList.empty();
@@ -287,7 +330,6 @@ console.log(newClient);
     console.log("...>" + devId)
     console.log("...>" + response.name)
     var newProject = response.name
-      newProject.attr({"data-id": response.id})
     var hired = {
       id: devId,
       hired: true,
