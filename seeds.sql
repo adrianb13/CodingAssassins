@@ -1,13 +1,12 @@
+USE wwn1lvj916dz9mza;
 
-USE developerdb;
+ALTER TABLE Developers CHANGE COLUMN createdAt createdAt datetime NOT NULL DEFAULT CURRENT_TIMESTAMP;
+ALTER TABLE Developers CHANGE COLUMN updatedAt updatedAt datetime NOT NULL DEFAULT CURRENT_TIMESTAMP;
 
-ALTER TABLE developers CHANGE COLUMN createdAt createdAt datetime NOT NULL DEFAULT CURRENT_TIMESTAMP;
-ALTER TABLE developers CHANGE COLUMN updatedAt updatedAt datetime NOT NULL DEFAULT CURRENT_TIMESTAMP;
+ALTER TABLE Clients CHANGE COLUMN createdAt createdAt datetime NOT NULL DEFAULT CURRENT_TIMESTAMP;
+ALTER TABLE Clients CHANGE COLUMN updatedAt updatedAt datetime NOT NULL DEFAULT CURRENT_TIMESTAMP;
 
-ALTER TABLE clients CHANGE COLUMN createdAt createdAt datetime NOT NULL DEFAULT CURRENT_TIMESTAMP;
-ALTER TABLE clients CHANGE COLUMN updatedAt updatedAt datetime NOT NULL DEFAULT CURRENT_TIMESTAMP;
-
-INSERT INTO developers(name, experience, cost_to_hire, password)
+INSERT INTO Developers(name, experience, cost_to_hire, password)
 VALUES("Fredrick", "Current student in Web Development", 300, 1234),
     ("Larry", "I've made a few websites already", 200, 1232),
     ("Lorietta", "One year experience in CSS and HTML", 400, 1232),
@@ -20,7 +19,7 @@ VALUES("Fredrick", "Current student in Web Development", 300, 1234),
     ("Gerald", "Graduate from MIT", 900, 1012);
 
 
-INSERT INTO clients(name, phone_number, job_header, job_requested)
+INSERT INTO Clients(name, phone_number, job_header, job_requested)
 VALUES("Jacob", "678-678-6677", "Need an app made", "App needs to be able to help locate events"),
     ("Jorge", "619-828-2222", "Need a polished front end", "I need my website to look modern"),
     ("Lawrence", "989-098-2234", "Need a faster app", "My website is slow, I need to debug it."),
@@ -32,6 +31,6 @@ VALUES("Jacob", "678-678-6677", "Need an app made", "App needs to be able to hel
     ("Hob", "921-023-8769", "Need a monopoly type game", "Need the game to be like monopoly, but doesn't have to be."),
     ("Kyle", "279-403-7282", "Need a website of books", "I'd like to get the website to read out loud the books and turn the page when it's done.");
     
-USE developerdb;
-SELECT * FROM developers;
-SELECT * FROM clients;
+USE wwn1lvj916dz9mza;
+SELECT * FROM Developers;
+SELECT * FROM Clients;

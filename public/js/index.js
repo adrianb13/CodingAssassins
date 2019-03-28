@@ -50,6 +50,12 @@ var API = {
       type: "DELETE"
     });
   },
+  logDeveloper: function(name) {
+    return $.ajax({
+      url: "api/developers/" + name,
+      type: "GET"
+    });    
+  },
   loginDeveloper: function(password) {
     return $.ajax({
       url: "api/developers/password/" + password,
@@ -385,21 +391,28 @@ var developerLogin = function() {
     name: $nameInput.val().trim(),
     password: $passwordInput.val().trim()
   };
-  API.loginDeveloper(cliente.password).then(function(data) {
-    console.log(data);
-    if (cliente.password === data.password) {
-      localStorage.setItem("currDev", JSON.stringify(data.id))
-      alert("Welcome " + data.name);
-      window.location.href = "/developer";
+  API.logDeveloper(cliente.name).then(function(dataName) {
+    if (cliente.name === dataName.name) {
+      API.loginDeveloper(cliente.password).then(function(data) {
+        console.log(data);
+        if (cliente.password === data.password && cliente.name === data.name) {
+          localStorage.setItem("currDev", JSON.stringify(data.id))
+          alert("Welcome " + data.name);
+          window.location.href = "/developer";
+        } else {
+          alert("Invalid login information, please try again or sign up.");
+        }
+        $nameInput.val("");
+        $passwordInput.val("");
+      });
     } else {
       alert("Invalid login information, please try again or sign up.");
     }
-    $nameInput.val("");
-    $passwordInput.val("");
   });
  };
  $submitButtonLogin.on("click", developerLogin);
 
+// Logout for Developers
 $("#logout").on("click", function() {
   localStorage.setItem("currDev", 0);
   window.location.href = "/"; 
