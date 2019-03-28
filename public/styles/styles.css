@@ -61,7 +61,8 @@ label {
   text-align: center;
   border: 1px solid black;
   padding: 20px;
-  background-color: #e9ecef;
+  background-color: #3c3f42;
+  color: #ffffff;
   border-radius: 15px;
   max-width: 500px;
 }
@@ -77,6 +78,7 @@ label {
   background-color: #31558e;
   border-color: #31558e;
   border-radius: 15px;
+  color: #ffffff;
 }
 
 .bus-button2 {
@@ -86,14 +88,16 @@ label {
   background-color: #31558e;
   border-color: #31558e;
   border-radius: 15px;
+  color: #ffffff;
 }
 
 /* Login-CSS */
 .dev-login {
-    background-color: #ffffff;
+    background-color: #3c3f42;
     border-radius: 10px;
     padding: 15px;
     margin-top: 50px;
+    color: #ffffff;
 }
 
 .newDev-input {
@@ -142,7 +146,7 @@ a {
 
 a:hover, a:visited, a:focus, a:link, a:active {
   text-decoration: none;
-  color: black;
+  color: white;
   
 }
 
@@ -153,4 +157,10 @@ a:hover, a:visited, a:focus, a:link, a:active {
 .dev-login-logo {
   font-size: 40px;
   text-align: center;
+}
+
+.job-req, .to-hire, .dev-app {
+  background-color: #3c3f42;
+  margin-top: 50px;
+  border-radius: 10px;
 }
