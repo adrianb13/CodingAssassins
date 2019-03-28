@@ -30,7 +30,7 @@ var API = {
   },
   getOneDeveloper: function(id) {
     return $.ajax({
-      url: "api/developers/" + id,
+      url: "api/developers/id/" + id,
       type: "GET"
     });
   },
@@ -48,6 +48,12 @@ var API = {
     return $.ajax({
       url: "api/developers/" + id,
       type: "DELETE"
+    });
+  },
+  loginDeveloper: function(password) {
+    return $.ajax({
+      url: "api/developers/password/" + password,
+      type: "GET"
     });
   },
   /// Clients
@@ -173,13 +179,14 @@ var handleFormSubmit = function(event) {
   $password.val("");
 };
 
-//var currDev = localStorage.getItem("currDev");
-//  currDev = JSON.parse(currDev);
-var currDev = 10;
+var currDev = localStorage.getItem("currDev");
+  currDev = JSON.parse(currDev);
+//var currDev = 10;
 var currProject = 0;
 // handleViewProject handles the button click for a Developer to view an existing project he is hired for.
 var handleViewProject = function() {
   API.getOneDeveloper(currDev).then(function(currClient) {
+    console.log(currClient);
     if (currClient.hired === false) {
       alert("Sorry, you have not been hired for a project yet.")
     }
@@ -253,7 +260,7 @@ var handleHireBtnClick = function() {
   localStorage.setItem("nameHire", nameToHire);
 
   API.getOneDeveloper(idToHire).then(function(response) {
-    console.log(response.name);
+    console.log(response);
     window.location.href = "/clientJobPost";
   });
 };
@@ -367,3 +374,28 @@ var handleDeleteBtnClick2 = function() {
 
 $jobSubmit.on("click", handleFormSubmit2);
 $clientList.on("click", ".delete", handleDeleteBtnClick2)
+
+// Login for developers
+var $nameInput = $("#nameInput");
+var $passwordInput = $("#passwordInput");
+var $submitButtonLogin = $("#submitButtonLogin");
+
+var developerLogin = function() {
+  var cliente = {
+    name: $nameInput.val().trim(),
+    password: $passwordInput.val().trim()
+  };
+  API.loginDeveloper(cliente.password).then(function(data) {
+    console.log(data);
+    if (cliente.password === data.password) {
+      localStorage.setItem("currDev", JSON.stringify(data.id))
+      alert("Welcome " + data.name);
+      window.location.href = "/developer";
+    } else {
+      alert("Invalid login information, please try again or sign up.");
+    }
+    $nameInput.val("");
+    $passwordInput.val("");
+  });
+ };
+ $submitButtonLogin.on("click", developerLogin);

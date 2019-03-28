@@ -10,10 +10,23 @@ module.exports = function(app) {
   });
 
 // View Developers Description
-  app.get("/api/developers/:id", function(req, res) {
+  app.get("/api/developers/id/:id", function(req, res) {
     db.Developers.findOne({
       where: {
         id: req.params.id
+      }
+    }).then(function(dbDevelopers) {
+      res.json(dbDevelopers);
+    }).catch(function(err) {
+      res.json(err);
+    });
+  });
+
+  // Developer Sign In
+  app.get("/api/developers/password/:password", function(req, res) {
+    db.Developers.findOne({
+      where: {
+        password: req.params.password
       }
     }).then(function(dbDevelopers) {
       res.json(dbDevelopers);
@@ -65,17 +78,6 @@ app.get("/api/clients", function(req, res) {
       }
     }).then(function(dbClients) {
       res.json(dbClients);
-    }).catch(function(err) {
-      res.json(err);
-    });
-  });
-
-// Developer Sign In
-  app.get("/api/developers/:password", function(req, res) {
-    db.Developers.findOne({
-      where: req.body.password
-    }).then(function(dbDevelopers) {
-      res.json(dbDevelopers);
     }).catch(function(err) {
       res.json(err);
     });
