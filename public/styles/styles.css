@@ -1,5 +1,8 @@
 .list-group-item {
-  line-height: 2.5;
+  line-height: 1.5;
+}
+.list-project-item {
+  line-height: 2;
 }
 
 /* Header CSS */
@@ -29,6 +32,19 @@ header {
   color: white;
   background-color: #31558e;
 }
+
+h2 {
+  color: white;
+  margin: 20px auto 20px auto;
+}
+
+h3 {
+  color: white;
+}
+
+label {
+  color: white;
+} 
 /* Header CSS */
 
 .display-4 {
@@ -65,8 +81,6 @@ header {
   color: #ffffff;
 }
 
-<<<<<<< Updated upstream
-=======
 .bus-button2 {
   margin-top: 25px;
   padding: 10px 60px 10px 60px;
@@ -77,7 +91,6 @@ header {
   color: #ffffff;
 }
 
->>>>>>> Stashed changes
 /* Login-CSS */
 .dev-login {
     background-color: #3c3f42;
@@ -133,16 +146,12 @@ a {
 
 a:hover, a:visited, a:focus, a:link, a:active {
   text-decoration: none;
-<<<<<<< Updated upstream
-=======
   color: white;
   
 }
 
 .aWhite {
->>>>>>> Stashed changes
   color: white;
-  
 }
 
 .dev-login-logo {
