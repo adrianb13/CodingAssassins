@@ -406,7 +406,7 @@ var developerLogin = function() {
           localStorage.setItem("currDev", JSON.stringify(data.id))
           alert("Welcome " + data.name);
           window.location.href = "/developer";
-        } else if (cliente.password === data.password || cliente.name === data.name) {
+        } else if (cliente.password !== data.password || cliente.name !== data.name) {
           alert("Invalid login information, please try again or sign up for a free account.");
         }
         $nameInput.val("");
