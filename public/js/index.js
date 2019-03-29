@@ -399,20 +399,21 @@ var developerLogin = function() {
   };
   API.logDeveloper(cliente.name).then(function(dataName) {
     if (cliente.name === dataName.name) {
-      API.loginDeveloper(cliente.password).then(function(data) {
+      console.log(dataName);
+      API.loginDeveloper(dataName.password).then(function(data) {
         console.log(data);
         if (cliente.password === data.password && cliente.name === data.name) {
           localStorage.setItem("currDev", JSON.stringify(data.id))
           alert("Welcome " + data.name);
           window.location.href = "/developer";
-        } else {
-          alert("Invalid login information, please try again or sign up.");
+        } else if (cliente.password === data.password || cliente.name === data.name) {
+          alert("Invalid login information, please try again or sign up for a free account.");
         }
         $nameInput.val("");
         $passwordInput.val("");
       });
     } else {
-      alert("Invalid login information, please try again or sign up.");
+      alert("Invalid login information, please try again or sign up for a free account.");
     }
   });
  };
