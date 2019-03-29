@@ -164,3 +164,7 @@ a:hover, a:visited, a:focus, a:link, a:active {
   margin-top: 50px;
   border-radius: 10px;
 }
+
+.inspQuote {
+  margin: 15px auto 0px auto;
+}

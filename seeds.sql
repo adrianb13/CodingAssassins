@@ -1,4 +1,4 @@
-USE wwn1lvj916dz9mza;
+USE developerdb;
 
 ALTER TABLE Developers CHANGE COLUMN createdAt createdAt datetime NOT NULL DEFAULT CURRENT_TIMESTAMP;
 ALTER TABLE Developers CHANGE COLUMN updatedAt updatedAt datetime NOT NULL DEFAULT CURRENT_TIMESTAMP;
@@ -31,6 +31,6 @@ VALUES("Jacob", "678-678-6677", "Need an app made", "App needs to be able to hel
     ("Hob", "921-023-8769", "Need a monopoly type game", "Need the game to be like monopoly, but doesn't have to be."),
     ("Kyle", "279-403-7282", "Need a website of books", "I'd like to get the website to read out loud the books and turn the page when it's done.");
     
-USE wwn1lvj916dz9mza;
+USE developerdb;
 SELECT * FROM Developers;
 SELECT * FROM Clients;

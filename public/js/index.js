@@ -100,6 +100,12 @@ var API = {
       url: "api/clients/" + id,
       type: "DELETE"
     });
+  },
+  getQuote: function() {
+    return $.ajax({
+      url: "api/quote",
+      type: "GET"
+    })
   }
 };
 
@@ -416,4 +422,12 @@ var developerLogin = function() {
 $("#logout").on("click", function() {
   localStorage.setItem("currDev", 0);
   window.location.href = "/"; 
+});
+
+// Random Inspirational Quote
+API.getQuote().then(function(response) {
+  console.log(response)
+  var quoteText = response[0].text;
+  var quoteAuthor = response[0].author;
+  $("#quote").text("An inspirational quote for you: '" + quoteText + "' ~" + quoteAuthor);
 });
