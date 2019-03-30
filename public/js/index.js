@@ -100,6 +100,12 @@ var API = {
       url: "api/clients/" + id,
       type: "DELETE"
     });
+  },
+  getQuote: function() {
+    return $.ajax({
+      url: "api/quote",
+      type: "GET"
+    })
   }
 };
 
@@ -393,20 +399,21 @@ var developerLogin = function() {
   };
   API.logDeveloper(cliente.name).then(function(dataName) {
     if (cliente.name === dataName.name) {
-      API.loginDeveloper(cliente.password).then(function(data) {
+      console.log(dataName);
+      API.loginDeveloper(dataName.password).then(function(data) {
         console.log(data);
         if (cliente.password === data.password && cliente.name === data.name) {
           localStorage.setItem("currDev", JSON.stringify(data.id))
           alert("Welcome " + data.name);
           window.location.href = "/developer";
-        } else {
-          alert("Invalid login information, please try again or sign up.");
+        } else if (cliente.password !== data.password || cliente.name !== data.name) {
+          alert("Invalid login information, please try again or sign up for a free account.");
         }
         $nameInput.val("");
         $passwordInput.val("");
       });
     } else {
-      alert("Invalid login information, please try again or sign up.");
+      alert("Invalid login information, please try again or sign up for a free account.");
     }
   });
  };
@@ -416,4 +423,12 @@ var developerLogin = function() {
 $("#logout").on("click", function() {
   localStorage.setItem("currDev", 0);
   window.location.href = "/"; 
+});
+
+// Random Inspirational Quote
+API.getQuote().then(function(response) {
+  console.log(response)
+  var quoteText = response[0].text;
+  var quoteAuthor = response[0].author;
+  $("#quote").text("An inspirational quote for you: '" + quoteText + "' ~" + quoteAuthor);
 });

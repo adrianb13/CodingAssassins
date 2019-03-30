@@ -1,4 +1,5 @@
 var db = require("../models");
+var quote = require("./../data/quote");
 
 module.exports = function(app) {
 
@@ -160,5 +161,10 @@ app.get("/api/clients", function(req, res) {
     }).then(function(dbClients) {
       res.json(dbClients);
     });
+  });
+
+  // Random Inspirational Quote
+  app.get("/api/quote", function(req, res) {
+    res.json(quote)
   });
 };
